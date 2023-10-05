@@ -74,6 +74,7 @@ id: id
                   column
                   medium-down--one-whole">
 
+        {% comment %} dkaplan 2023-09-30 added ,defer:true to the line below for LCP optimization {% endcomment %}
          {% render 'product__images'| asset_url,
                 product: product,
         display_thumbnails: section.settings.display_thumbnails,
@@ -85,7 +86,7 @@ id: id
         gallery_arrows: section.settings.gallery_arrows,
         slideshow_transition: section.settings.slideshow_transition,
         enable_product_lightbox: section.settings.enable_product_lightbox,
-        enable_zoom: section.settings.enable_zoom 
+        enable_zoom: section.settings.enable_zoom, defer: true  
         %} 
 
       </div>
@@ -199,10 +200,12 @@ id: id
 
           {% comment %} Product form {% endcomment %}
           {% unless collection_handles contains 'coming-soon' %}
+
+          {% comment %} dkaplan 2023-09-30 added ,defer:true to the line below for LCP optimization {% endcomment %}         
           {% render 'product__form',
                     context: 'product',
           show_payment_button: section.settings.show_payment_button,
-          collection_handles: collection_handles
+          collection_handles: collection_handles, defer: true 
           %}
           {% endunless %}
         </div>
@@ -307,7 +310,9 @@ id: id
     "template": "classic"
   }
 </script>
-<script src="{{ 'z__jsProduct.js' | asset_url }}"></script>
+
+{% comment %} dkaplan 2023-09-30 added defer to the line below between script and src for LCP optimization {% endcomment %}   
+<script defer src="{{ 'z__jsProduct.js' | asset_url }}"></script>
 
 {% comment %} Shopify-XR {% endcomment %}
 {% if product.media %}
